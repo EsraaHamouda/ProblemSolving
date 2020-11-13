@@ -1,0 +1,68 @@
+Find Numbers with Even Number of Digits
+
+//Solution 1
+class Solution {
+    public int findNumbers(int[] nums) {
+        
+        int counter = 0;
+        for(int num : nums){
+            
+            String numStr = String.valueOf(num);
+            if(numStr.length() % 2 == 0){
+                counter ++;
+            }
+        }
+        
+        return counter;
+        
+    }
+}
+
+// Solution 2
+class Solution {
+    
+    public int getDigitCount(int num){
+        
+        int digit = 0;
+        while(num > 0){
+            digit++;
+            
+            num/=10;
+        }
+        return digit;
+    }
+    public int findNumbers(int[] nums) {
+        
+        int counter = 0;
+        for(int num : nums){
+            
+             if(getDigitCount(num) % 2 == 0){
+                counter ++;
+            }
+        }
+        
+        return counter;
+        
+    }
+}
+
+//Solution 3  digits = floor(log10(num)) + 1;
+
+class Solution {
+    
+ 
+    public int findNumbers(int[] nums) {
+        
+        int counter = 0;
+        double digits = 0;
+        for(int num : nums){
+             digits = Math.floor(Math.log10(num)) + 1;
+             if(digits % 2 == 0){
+                counter ++;
+            }
+        }
+        
+        return counter;
+        
+    }
+}
