@@ -1,0 +1,46 @@
+//https://www.hackerrank.com/challenges/between-two-sets/problem
+	public static int getTotalX(List<Integer> a, List<Integer> b) {
+
+		Collections.sort(a);
+		Collections.sort(b);
+
+		int aSize = a.size();
+		int bSize = b.size();
+
+		int start = a.get(aSize - 1);
+		int end = b.get(0);
+
+		Set<Integer> mySet = new HashSet<Integer>();
+		Set<Integer> mySet2 = new HashSet<Integer>();
+
+		for (int num = start; num <= end; num++) {
+			boolean flag = true;
+			for (int j = 0; j < aSize; j++) {
+
+				if (flag && num % a.get(j) == 0) {
+
+				} else {
+					flag = false;
+				}
+			}
+			if (flag)
+				mySet.add(num);
+			flag = true;
+			for (int j = 0; j < bSize; j++) {
+
+				if (flag && b.get(j) % num == 0) {
+
+				} else {
+					flag = false;
+				}
+
+			}
+			if (flag)
+				mySet2.add(num);
+		}
+
+		mySet.retainAll(mySet2);
+
+		return mySet.size();
+
+	}
