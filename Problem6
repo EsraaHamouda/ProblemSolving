@@ -1,0 +1,24 @@
+  https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem
+  static int[] breakingRecords(int[] scores) {
+
+        
+        int result[] = {0,0};
+        
+        int lastHighSore = scores[0];
+        int lastLowSore = scores[0];
+        
+        for(int score:scores) {
+            
+            if(score > lastHighSore ) {
+                result[0]++;
+                lastHighSore = score;
+            } 
+            if(score < lastLowSore) {
+                result[1]++;
+                lastLowSore = score;
+            }
+            
+        }
+        return result;
+
+    }
