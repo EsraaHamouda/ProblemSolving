@@ -1,0 +1,275 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.IntSummaryStatistics;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Main {
+
+	
+	 // Complete the viralAdvertising function below.
+    static int viralAdvertising(int n) {
+    		
+    	int actual  = 0, newParticipants = 0, res = 0, num =5;
+    	
+    	for(int i = 1 ; i <=n ; i++) {
+    		
+    		actual = num/2;
+    		newParticipants = actual * 3;
+    		res += actual;
+    		num = newParticipants;
+    	}
+    	return res;
+
+    }
+    
+	static int divisibleSumPairs(int n, int k, int[] ar) {
+
+		int c = 0;
+		for (int i = 0; i < n; i++) {
+
+			for (int j = i + 1; j < n; j++) {
+
+				if (ar[i] + ar[j] % k == 0)
+					c++;
+
+			}
+
+		}
+		return c;
+	}
+
+	static int minimumNumber(int n, String password) {
+		// Return the minimum number of characters to make the password strong
+		Pattern p = Pattern.compile("\\d");
+		Pattern p2 = Pattern.compile("[a-z]");
+		Pattern p3 = Pattern.compile("[A-Z]");
+		Pattern p4 = Pattern.compile("\\W");
+		int c = 0;
+		Matcher m = p.matcher(password);
+		if (!m.find())
+			c++;
+
+		m = p2.matcher(password);
+		if (!m.find())
+			c++;
+
+		m = p3.matcher(password);
+		if (!m.find())
+			c++;
+
+		m = p4.matcher(password);
+		if (!m.find())
+			c++;
+
+		return Math.max(6 - password.length(), c);
+	}
+
+	static int[] countingSort(int[] arr) {
+		int size = arr.length;
+		int[] myarray = new int[100];
+
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		for (int j = 0; j < arr.length; j++)
+			a.add(arr[j]);
+
+		for (int w = 0; w < 100; w++) {
+			myarray[w] = Collections.frequency(a, w);
+		}
+
+		return myarray;
+
+	}
+
+	static int reverseNum(int n) {
+		int reverse = 0;
+		while (n != 0) {
+			reverse = reverse * 10;
+			reverse = reverse + n % 10;
+			n = n / 10;
+		}
+		return reverse;
+	}
+
+	static int beautifulDays(int i, int j, int k) {
+
+		int c = 0;
+		for (int num = i; num <= j; num++) {
+
+			if (Math.abs(num - reverseNum(num)) % k == 0)
+				c++;
+		}
+		return c;
+
+	}
+
+	static String angryProfessor(int k, int[] a) {
+
+		int counter = 0;
+		for (int i : a) {
+			if (i <= 0)
+				counter++;
+		}
+		return counter >= k ? "YES" : "NO";
+	}
+
+	static int utopianTree(int n) {
+
+		int num = 1;
+		for (int i = 1; i <= n; i++) {
+
+			if (i % 2 == 1)
+				num += num;
+			else
+				num++;
+		}
+		return num;
+	}
+
+	static int designerPdfViewer(int[] h, String word) {
+
+		int tallest = Integer.MIN_VALUE;
+
+		for (int i = 0; i < word.length(); i++) {
+
+			int ascii = word.charAt(i) - 'A';
+			if (h[ascii] > tallest)
+				tallest = h[ascii];
+
+		}
+		return tallest * word.length();
+
+	}
+
+	static int hurdleRace(int k, int[] height) {
+		List<Integer> list = new ArrayList<Integer>();
+		for (int i : height) {
+			list.add(i);
+		}
+		System.out.println(list);
+		IntSummaryStatistics intStats = list.stream().mapToInt((x) -> x).summaryStatistics();
+
+		int max = intStats.getMax();
+		return max > k ? max - k : 0;
+	}
+
+	static int res = 0;
+
+	static int migratoryBirds(List<Integer> arr) {
+
+		Map<Integer, Integer> myMap = new HashMap<Integer, Integer>();
+
+		for (int i : arr) {
+
+			if (myMap.containsKey(i)) {
+
+				int count = myMap.get(i);
+				myMap.put(i, count + 1);
+			} else {
+				myMap.put(i, 1);
+			}
+
+		}
+
+		int myMax = Integer.MIN_VALUE;
+		int myId = Integer.MAX_VALUE;
+
+		for (Map.Entry<Integer, Integer> entry : myMap.entrySet()) {
+
+			if (myMax < entry.getValue()) {
+				myMax = entry.getValue();
+				myId = entry.getKey();
+			} else if (myMax == entry.getValue() && entry.getKey() < myId) {
+
+				myId = entry.getKey();
+			}
+
+		}
+
+		return myId;
+	}
+
+	static int[] breakingRecords(int[] scores) {
+
+		int result[] = { 0, 0 };
+
+		int lastHighSore = scores[0];
+		int lastLowSore = scores[0];
+
+		for (int score : scores) {
+
+			if (score > lastHighSore) {
+				result[0]++;
+				lastHighSore = score;
+			}
+			if (score < lastLowSore) {
+				result[1]++;
+				lastLowSore = score;
+			}
+
+		}
+		return result;
+
+	}
+
+	public static int getTotalX(List<Integer> a, List<Integer> b) {
+
+		Collections.sort(a);
+		Collections.sort(b);
+
+		int aSize = a.size();
+		int bSize = b.size();
+
+		int start = a.get(aSize - 1);
+		int end = b.get(0);
+
+		Set<Integer> mySet = new HashSet<Integer>();
+		Set<Integer> mySet2 = new HashSet<Integer>();
+
+		for (int num = start; num <= end; num++) {
+			boolean flag = true;
+			for (int j = 0; j < aSize; j++) {
+
+				if (flag && num % a.get(j) == 0) {
+
+				} else {
+					flag = false;
+				}
+			}
+			if (flag)
+				mySet.add(num);
+			flag = true;
+			for (int j = 0; j < bSize; j++) {
+
+				if (flag && b.get(j) % num == 0) {
+
+				} else {
+					flag = false;
+				}
+
+			}
+			if (flag)
+				mySet2.add(num);
+		}
+
+		mySet.retainAll(mySet2);
+
+		return mySet.size();
+
+	}
+
+	public static void main(String[] args) {
+
+		int ar[] = { 1, 3, 2, 6, 1, 2 };
+		divisibleSumPairs(6, 3, ar);
+
+	}
+}
